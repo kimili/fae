@@ -21,8 +21,12 @@ module Fae
     end
 
     version :thumb do
-      process :resize_to_fill => [150,100]
-    end
+       process :resize_to_fill => [150,100], if: :require_versions?
+     end
+
+     def require_versions?(new_file)
+       !['image/gif', 'image/svg+xml', 'text/plain'].include?(new_file.content_type)
+     end
 
   end
 end
